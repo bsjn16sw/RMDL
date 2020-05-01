@@ -194,7 +194,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                          monitor='loss',
                                          verbose=1,
                                          save_best_only=True,
-                                         mode='max')
+                                         mode='min')
             callbacks_list = [checkpoint]
 
             model_DNN, model_tmp = BuildModel.Build_Model_DNN_Text(x_train_tfidf.shape[1],
@@ -267,7 +267,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                          monitor='loss',
                                          verbose=1,
                                          save_best_only=True,
-                                         mode='max')
+                                         mode='min')
             callbacks_list = [checkpoint]
 
             model_RNN, model_tmp = BuildModel.Build_Model_RNN_Text(word_index,
@@ -345,7 +345,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
 
             filepath = "weights_CNN_" + str(i) + ".hdf5"
             checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True,
-                                         mode='max')
+                                         mode='min')
             callbacks_list = [checkpoint]
 
             model_history = model_CNN.fit(x_train_embedded, y_train,
