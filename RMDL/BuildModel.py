@@ -126,7 +126,8 @@ def Build_Model_DNN_Image(shape, number_of_classes, sparse_categorical, min_hidd
 
 def Build_Model_DNN_Text(shape, nClasses, sparse_categorical,
                          min_hidden_layer_dnn, max_hidden_layer_dnn, min_nodes_dnn,
-                         max_nodes_dnn, random_optimizor, dropout):
+                         max_nodes_dnn, random_optimizor, dropout,
+                         pretrained_hdf5_path_dnn):
     """
     buildModel_DNN_Tex(shape, nClasses,sparse_categorical)
     Build Deep neural networks Model for text classification
@@ -151,6 +152,10 @@ def Build_Model_DNN_Text(shape, nClasses, sparse_categorical,
         Numberof_NOde_old = Numberof_NOde
     model.add(Dense(nClasses, activation='softmax'))
     model_tem = model
+
+    if pretrained_hdf5_path_dnn is not None:
+        model.load_weights(pretrained_hdf5_path_dnn)
+
     if sparse_categorical:
         model.compile(loss='sparse_categorical_crossentropy',
                       optimizer=optimizors(random_optimizor),
@@ -247,7 +252,8 @@ def Build_Model_RNN_Image(shape,
 
 
 def Build_Model_RNN_Text(word_index, embeddings_index, nclasses,  MAX_SEQUENCE_LENGTH, EMBEDDING_DIM, sparse_categorical,
-                         min_hidden_layer_rnn, max_hidden_layer_rnn, min_nodes_rnn, max_nodes_rnn, random_optimizor, dropout):
+                         min_hidden_layer_rnn, max_hidden_layer_rnn, min_nodes_rnn, max_nodes_rnn, random_optimizor, dropout,
+                         pretrained_hdf5_path_rnn):
     """
     def buildModel_RNN(word_index, embeddings_index, nClasses, MAX_SEQUENCE_LENGTH, EMBEDDING_DIM, sparse_categorical):
     word_index in word index ,
@@ -292,6 +298,8 @@ def Build_Model_RNN_Text(word_index, embeddings_index, nclasses,  MAX_SEQUENCE_L
     model_tmp = model
     #model = to_multi_gpu(model, 3)
 
+    if pretrained_hdf5_path_rnn is not None:
+        model.load_weights(pretrained_hdf5_path_rnn)
 
     if sparse_categorical:
         model.compile(loss='sparse_categorical_crossentropy',
@@ -306,7 +314,7 @@ def Build_Model_RNN_Text(word_index, embeddings_index, nclasses,  MAX_SEQUENCE_L
 
 def Build_Model_CNN_Text(word_index, embeddings_index, nclasses, MAX_SEQUENCE_LENGTH, EMBEDDING_DIM, sparse_categorical,
                        min_hidden_layer_cnn, max_hidden_layer_cnn, min_nodes_cnn, max_nodes_cnn, random_optimizor,
-                       dropout, simple_model=False):
+                       dropout, simple_model=False, pretrained_hdf5_path_cnn):
 
     """
         def buildModel_CNN(word_index,embeddings_index,nClasses,MAX_SEQUENCE_LENGTH,EMBEDDING_DIM,Complexity=0):
@@ -422,6 +430,10 @@ def Build_Model_CNN_Text(word_index, embeddings_index, nclasses, MAX_SEQUENCE_LE
         preds = Dense(nclasses, activation='softmax')(l_dense)
         model = Model(sequence_input, preds)
         model_tmp = model
+
+        if pretrained_hdf5_path_cnn is not None:
+            model.load_weights(pretrained_hdf5_path_cnn)
+
         if sparse_categorical:
             model.compile(loss='sparse_categorical_crossentropy',
                           optimizer=optimizors(random_optimizor),
