@@ -37,8 +37,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                         min_hidden_layer_dnn=1, max_hidden_layer_dnn=8, min_nodes_dnn=128, max_nodes_dnn=1024,
                         min_hidden_layer_rnn=1, max_hidden_layer_rnn=5, min_nodes_rnn=32,  max_nodes_rnn=128,
                         min_hidden_layer_cnn=3, max_hidden_layer_cnn=10, min_nodes_cnn=128, max_nodes_cnn=512,
-                        random_state=42, random_optimizor=True, dropout=0.5,no_of_classes=0,
-                        pretrained_hdf5_path_dnn=None, pretrained_hdf5_path_rnn=None, pretrained_hdf5_path_cnn=None):
+                        random_state=42, random_optimizor=True, dropout=0.5,no_of_classes=0):
 
 
     """
@@ -206,8 +205,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                                                    min_nodes_dnn,
                                                                    max_nodes_dnn,
                                                                    random_optimizor,
-                                                                   dropout,
-                                                                   pretrained_hdf5_path_dnn)
+                                                                   dropout)
             model_history = model_DNN.fit(x_train_tfidf, y_train,
                               validation_data=(x_test_tfidf, y_test),
                               epochs=epochs[0],
@@ -283,8 +281,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                                                    min_nodes_rnn,
                                                                    max_nodes_rnn,
                                                                    random_optimizor,
-                                                                   dropout,
-                                                                   pretrained_hdf5_path_rnn)
+                                                                   dropout)
 
             model_history = model_RNN.fit(x_train_embedded, y_train,
                               validation_data=(x_test_embedded, y_test),
@@ -342,8 +339,7 @@ def Text_Classification(x_train, y_train, x_test,  y_test, batch_size=128,
                                                                    min_nodes_cnn,
                                                                    max_nodes_cnn,
                                                                    random_optimizor,
-                                                                   dropout,
-                                                                   pretrained_hdf5_path_cnn)
+                                                                   dropout)
 
 
 
